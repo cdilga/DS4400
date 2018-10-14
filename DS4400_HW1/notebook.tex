@@ -1,0 +1,1381 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{DS44000 Homework 1}\label{ds44000-homework-1}
+
+Chris Dilger
+
+Code available on GitHub:
+https://github.com/cdilga/DS4400/blob/master/Homework\%201.ipynb
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Problem 1}\label{problem-1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{config} IPCompleter.greedy=True
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k}{def} \PY{n+nf}{cols}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Formats list like objects into columns\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{o}{.}\PY{n}{ljust}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{data}\PY{p}{)}
+        
+                           
+        \PY{c+c1}{\PYZsh{} Load the file}
+        \PY{n}{housing} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                              \PY{n}{usecols}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bedrooms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bathrooms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}lot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{floors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{waterfront}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{view}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{condition}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}above}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}basement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yr\PYZus{}built}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yr\PYZus{}renovated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{long}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}lot15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{housing\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                              \PY{n}{usecols}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bedrooms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bathrooms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}lot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{floors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{waterfront}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{view}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{condition}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}above}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}basement}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yr\PYZus{}built}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yr\PYZus{}renovated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{long}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}lot15}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        
+        
+        \PY{n}{housing\PYZus{}training\PYZus{}features} \PY{o}{=} \PY{n}{housing}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{housing\PYZus{}training\PYZus{}labels} \PY{o}{=} \PY{n}{housing}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{housing\PYZus{}testing\PYZus{}features} \PY{o}{=} \PY{n}{housing\PYZus{}test}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{housing\PYZus{}testing\PYZus{}labels} \PY{o}{=} \PY{n}{housing\PYZus{}test}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{n}{description} \PY{o}{=} \PY{n}{housing}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{std}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{description} \PY{o}{=} \PY{n}{description}\PY{o}{.}\PY{n}{T}
+        \PY{n}{description}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{var}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{description}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{description}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}                         mean            std         min           max  \textbackslash{}
+        price          520414.834000  339488.477270  80000.0000  3.075000e+06   
+        bedrooms            3.349000       0.852012      0.0000  7.000000e+00   
+        bathrooms           2.045750       0.721623      0.0000  5.000000e+00   
+        sqft\_living      2051.196000     887.929222    380.0000  6.070000e+03   
+        sqft\_lot        14702.085000   28961.030775    649.0000  3.153740e+05   
+        floors              1.446500       0.517354      1.0000  3.500000e+00   
+        waterfront          0.008000       0.089129      0.0000  1.000000e+00   
+        view                0.237000       0.765125      0.0000  4.000000e+00   
+        condition           3.464000       0.689332      1.0000  5.000000e+00   
+        grade               7.606000       1.160220      4.0000  1.200000e+01   
+        sqft\_above       1750.333000     790.077476    380.0000  6.070000e+03   
+        sqft\_basement     300.863000     450.898196      0.0000  2.060000e+03   
+        yr\_built         1969.049000      28.190873   1900.0000  2.015000e+03   
+        yr\_renovated       81.749000     395.578250      0.0000  2.014000e+03   
+        lat                47.549493       0.141670     47.1775  4.777760e+01   
+        long             -122.207472       0.139509   -122.4900 -1.217090e+02   
+        sqft\_living15    1987.077000     670.439353    830.0000  4.760000e+03   
+        sqft\_lot15      13496.874000   25093.829486    660.0000  2.339710e+05   
+        
+                                var  
+        price          1.152524e+11  
+        bedrooms       7.259249e-01  
+        bathrooms      5.207402e-01  
+        sqft\_living    7.884183e+05  
+        sqft\_lot       8.387413e+08  
+        floors         2.676554e-01  
+        waterfront     7.943944e-03  
+        view           5.854164e-01  
+        condition      4.751792e-01  
+        grade          1.346110e+00  
+        sqft\_above     6.242224e+05  
+        sqft\_basement  2.033092e+05  
+        yr\_built       7.947253e+02  
+        yr\_renovated   1.564822e+05  
+        lat            2.007034e-02  
+        long           1.946285e-02  
+        sqft\_living15  4.494889e+05  
+        sqft\_lot15     6.297003e+08  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{cov}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate covariance given the feature x and response y\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{total} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{n}{y\PYZus{}m} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{total} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}m}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}m}\PY{p}{)}
+            \PY{k}{return} \PY{n}{total}\PY{o}{/}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{cor}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate the correlation coefficient\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{return} \PY{n}{cov}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{n}{y}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{feature} \PY{o+ow}{in} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{housing} \PY{k}{if} \PY{n}{x} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{cols}\PY{p}{(}\PY{p}{[}\PY{n}{feature}\PY{p}{,} 
+                        \PY{n}{cor}\PY{p}{(}\PY{n}{housing}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{housing}\PY{p}{[}\PY{n}{feature}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{housing}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{housing}\PY{p}{[}\PY{n}{feature}\PY{p}{]}\PY{p}{)}
+                       \PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+bedrooms                      0.3070584002104321            0.3070584002104319            
+bathrooms                     0.48715729789866974           0.4871572978986769            
+sqft\_living                   0.7047757101823997            0.7047757101824055            
+sqft\_lot                      0.14664482983805222           0.14664482983805197           
+floors                        0.2399348472639126            0.2399348472639161            
+waterfront                    0.31714301382621846           0.3171430138262226            
+view                          0.44531642588846515           0.4453164258884609            
+condition                     0.07396055390188862           0.07396055390188938           
+grade                         0.647349055785599             0.6473490557856066            
+sqft\_above                    0.5824071469756538            0.5824071469756582            
+sqft\_basement                 0.3673649191324655            0.36736491913246594           
+yr\_built                      0.01605485919669362           0.016054859196693777          
+yr\_renovated                  0.1463481824398023            0.14634818243980063           
+lat                           0.36576970790785424           0.36576970790785757           
+long                          0.0328455635948112            0.03284556359481139           
+sqft\_living15                 0.6451060081578837            0.6451060081578872            
+sqft\_lot15                    0.16174626078384294           0.16174626078384322           
+
+    \end{Verbatim}
+
+    \paragraph{Discussion of Problem 1.a}\label{discussion-of-problem-1.a}
+
+Suprisingly every feature is positively correlated with price, which is
+suprising. \texttt{yr\_built} and \texttt{yr\_renovated} are weakly
+correlated, as were \texttt{long} (longditude) and \texttt{sqft\_lot15}.
+
+\subsection{Problem 2 {[}Linear
+regression{]}}\label{problem-2-linear-regression}
+
+\subsubsection{(a)}\label{a}
+
+Use an existing package to train a linear regression model on the
+training set. Report the coefficients of the linear regression models
+and the 3 metrics of interest: MSE, RSS, and \(R^2\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}use scikit.learn}
+        
+        \PY{c+c1}{\PYZsh{}Get MSE RSS and R\PYZca{}2}
+        
+        \PY{c+c1}{\PYZsh{}All predictors predicting \PYZsq{}price\PYZsq{} label}
+        
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{Math}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+        
+        \PY{k}{def} \PY{n+nf}{lib\PYZus{}metrics}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{:}
+            \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}0:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{mse} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{r}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{)}
+            \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE=}\PY{l+s+si}{\PYZob{}0:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mse}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{rss} \PY{o}{=} \PY{n}{mse}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+            \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS=}\PY{l+s+si}{\PYZob{}0:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{rss}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{n}{reg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+        
+        \PY{n}{lib\PYZus{}metrics}\PY{p}{(}\PY{n}{reg}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    $$R^2 = 0.7265$$
+
+    
+    $$MSE=31486167776$$
+
+    
+    $$RSS=31486167775795$$
+
+    
+    \subsubsection{(b)}\label{b}
+
+Perform feature standardization so that each feature has mean 0 and
+variance of 1. Train again a linear regression model on the training
+data. Compare the results with the previous models in terms of the
+metrics of interest: MSE, RSS, and \(R^2\).
+
+\subsubsection{(c)}\label{c}
+
+Evaluate both models on the testing set. Report the same metrics (MSE,
+RSE, and \(R^2\)) on the testing set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} We should be able to pass this a dataset, then it normalises it. Will also expose functions to normalise further bits}
+         \PY{c+c1}{\PYZsh{} It seems that \PYZdq{}unstandardisation\PYZdq{} isn\PYZsq{}t really a thing}
+         \PY{k}{def} \PY{n+nf}{standardize}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}iterate through the features}
+             \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Nice function which copies the shape of features into a new array}
+             \PY{n}{scaled} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty\PYZus{}like}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{mu} \PY{o}{=} \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{sd} \PY{o}{=} \PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{scaled}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{mu}\PY{p}{)}\PY{o}{/}\PY{n}{sd}
+                     
+             \PY{k}{return} \PY{n}{scaled}
+         
+         \PY{n}{stdreg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{stdfeatures} \PY{o}{=} \PY{n}{standardize}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{)}
+         \PY{n}{stdreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{stdfeatures}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+         
+         \PY{n}{lib\PYZus{}metrics}\PY{p}{(}\PY{n}{stdreg}\PY{p}{,} \PY{n}{stdfeatures}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Without Scaling R\PYZca{}2: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{reg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{With Scaling R\PYZca{}2: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stdreg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{stdfeatures}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+         \PY{n}{labs} \PY{o}{=} \PY{p}{[}\PY{n}{label} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{]}
+         
+         \PY{n}{stdcomp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standardized}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{stdreg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{labs}\PY{p}{)}\PY{p}{,} 
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unstandardized}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{reg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{labs}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{stdcomp}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{stdcomp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standardized}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+
+
+    $$R^2 = 0.7265$$
+
+    
+    $$MSE=31486167776$$
+
+    
+    $$RSS=31486167775795$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Without Scaling R\^{}2:  0.7265334318706016
+With Scaling R\^{}2:  0.7265334318706018
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                Standardized  Unstandardized
+         long           -1035.203084    -7424.027121
+         floors          8043.720837    15555.580988
+         sqft\_lot       10881.868446        0.375930
+         bedrooms      -12521.961869   -14704.280497
+         sqft\_lot15    -12930.090978       -0.515528
+         condition      12964.269364    18816.402756
+         yr\_renovated   17271.379530       43.682942
+         bathrooms      18527.632513    25687.783987
+         sqft\_basement  27137.032468       41.073715
+         sqft\_living15  45577.657813       68.015792
+         view           48200.108524    63027.898001
+         sqft\_above     48290.088862       42.010495
+         sqft\_living    56748.836801       83.084210
+         waterfront     63742.899560   715535.170469
+         yr\_built      -67643.117413    -2400.669330
+         lat            78375.736932   553505.032276
+         grade          92231.474822    79534.602722
+\end{Verbatim}
+            
+    Interestingly the \(R^2\) value, MSE and RSS have remained the same
+whether or not the data has been normalised. We would expect a
+difference in convergence time however, when we construct the gradient
+descent model in Problem 4
+
+\subsubsection{(d)}\label{d}
+
+Interpret the results in your own words. Which features contribute
+mostly to the linear regression model? Is the model fitting the data
+well? How large is the model error?
+
+We see that the features with the largest theta values contribute the
+most to the linear regression. Results were ordered by their absolute
+value to include negative effects. Several results are unexpected,
+especially the negative correlation between bedrooms and price. A basic
+graph below demonstrates this
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}plot housing.loc[:,\PYZdq{}bedrooms\PYZdq{}],housing.loc[:,\PYZdq{}price\PYZdq{}]}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{display}\PY{p}{(}\PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{housing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bedrooms}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{housing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<matplotlib.collections.PathCollection at 0x1e392a6c438>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There seems to be a positive correlation before we account for all other
+features
+
+The model is fitting the data reasonably well, \(R^2\) shows that
+72.65\% of the variation in the data can be explained by the multiple
+linear model.
+
+    \subsection{Problem 3 {[}Closed form solution of linear
+regression{]}}\label{problem-3-closed-form-solution-of-linear-regression}
+
+In this problem, you will implement your own linear regression model,
+using the closed-form solution we derived in class. You will also
+compare your model with the one trained with the package.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Implement simple linear regression and train a model for one feature
+  (sqft\_living) using the training set. Write code to predict a
+  response for a new single-dimensional data point in the testing set.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{class} \PY{n+nc}{Lin}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Fit a linear model to some datapoints in 2 dimensions\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{=} \PY{l+m+mi}{0}
+                
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:} 
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Takes X Feature numpy 1d array, y Label numpy 1d array\PYZdq{}\PYZdq{}\PYZdq{}}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                
+                \PY{n}{x\PYZus{}m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                \PY{n}{y\PYZus{}m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} for each training data point in x, and corresponding label y}
+                \PY{c+c1}{\PYZsh{} calculate 2 separate values, using this formula and a mean of each}
+                \PY{n}{a} \PY{o}{=} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{diffx} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{x\PYZus{}m}
+                    \PY{n}{a} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{diffx}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}m}\PY{p}{)}
+                    \PY{n}{b} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{diffx}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                    
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{a}\PY{o}{/}\PY{n}{b}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{y\PYZus{}m}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{x\PYZus{}m}
+                
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}m}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                
+                \PY{k}{return} \PY{n+nb+bp}{self}
+            
+            \PY{k}{def} \PY{n+nf}{rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}
+            
+            \PY{k}{def} \PY{n+nf}{mse}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{/} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{r2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{coef}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return the coefficients vector\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}
+            
+            \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{x}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{n}{mod} \PY{o}{=} \PY{n}{Lin}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{housing\PYZus{}training\PYZus{}features}
+        \PY{n}{mod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{housing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{housing}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{thetas} \PY{o}{=} \PY{n}{mod}\PY{o}{.}\PY{n}{coef}\PY{p}{(}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{theta\PYZus{}0 = }\PY{l+s+si}{\PYZob{}0:.4f\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{theta\PYZus{}1 = }\PY{l+s+si}{\PYZob{}1:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{thetas}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{thetas}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{predict} \PY{o}{=} \PY{n}{housing\PYZus{}test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqft\PYZus{}living}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{model} \PY{o}{=} \PY{n}{mod}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{predict}\PY{p}{)}
+        \PY{n}{actual} \PY{o}{=} \PY{n}{housing\PYZus{}test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Predicted\PYZcb{}}\PY{l+s+s2}{=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                     \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Actual\PYZcb{}}\PY{l+s+s2}{= }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                     \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+s2}{\PYZdq{}}
+                    \PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ MSE = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mod}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mod}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mod}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    $$\theta_0 = -32304.6547, \theta_1 = 269.4621$$
+
+    
+    $$\text{Predicted}=388056.15 \space ft^2\\ \text{Actual}= 270000.0\space ft^2$$
+
+    
+    $$RSS = 57947526161288.3594 \\ MSE = 57947526161.2884 \\ R^2 = 0.4967$$
+
+    
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Implement multiple linear regression using matrix operations and train
+  a model on the training set. Write code to predict a response for a
+  new multi-dimensional data point in the testing set.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{class} \PY{n+nc}{Multi\PYZus{}lin}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} has a coeficients property}
+            \PY{c+c1}{\PYZsh{} has a fit method}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{=} \PY{l+m+mi}{0}
+                
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:} 
+                \PY{c+c1}{\PYZsh{}We need to add a column of ones to x to allow the intercept to work}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{intercept} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+         
+                \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{intercept}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{y\PYZus{}m} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}use theta}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{pinv}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+        
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}calc\PYZus{}rss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}m}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+            
+            \PY{k}{def} \PY{n+nf}{coef}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+            
+            \PY{k}{def} \PY{n+nf}{intercept}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}calc\PYZus{}rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}m}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}we have to strip off all of the leading 1\PYZsq{}s}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}m}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                    
+            \PY{k}{def} \PY{n+nf}{mse}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{/} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+                
+            \PY{k}{def} \PY{n+nf}{rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}
+            
+            \PY{k}{def} \PY{n+nf}{r2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            
+            
+        \PY{n}{mult} \PY{o}{=} \PY{n}{Multi\PYZus{}lin}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Prediction of price using new multidimensional data point}
+        
+        \PY{n}{mult}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{)}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+        \PY{n}{model} \PY{o}{=} \PY{n}{mult}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}testing\PYZus{}features}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n}{actual} \PY{o}{=} \PY{n}{housing\PYZus{}testing\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Predicted\PYZcb{}}\PY{l+s+s2}{=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                     \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Actual\PYZcb{}}\PY{l+s+s2}{= }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                     \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+s2}{\PYZdq{}}
+                    \PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS = }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ MSE = }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}2:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mult}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mult}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)} \PY{p}{,} \PY{n}{mult}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    $$\text{Predicted}=689731.07 \space ft^2\\ \text{Actual}= 700000.0\space ft^2$$
+
+    
+    $$RSS = 31862677597299.113 \\ MSE = 31862677597.299114 \\ R^2 = 0.7233$$
+
+    
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Compare the models given by your implementation with those trained in
+  Problem 2 by the R or Python packages. Report the MSE, RSE, and
+  \(R^2\) metrics for the models you implemented. Compare the
+  coefficients output by your model with the ones computed by the
+  package.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Linear model trained:}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Simple linear regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ MSE = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mod}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mod}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mod}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}libaray simple linear regression}
+         \PY{n}{simplereg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqft\PYZus{}living}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{simplereg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Simple linear regression library:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}0:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{simplereg}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{simpleregmse} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{simplereg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE=}\PY{l+s+si}{\PYZob{}0:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{simpleregmse}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{simpleregrss} \PY{o}{=} \PY{n}{simpleregmse}\PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS=}\PY{l+s+si}{\PYZob{}0:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{simpleregrss}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Multiple linear model trained:}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Multiple linear regression: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS = }\PY{l+s+si}{\PYZob{}0:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ MSE = }\PY{l+s+si}{\PYZob{}1:.4f\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}2:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mult}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mult}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mult}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Multiple linear regression library}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{lib\PYZus{}metrics}\PY{p}{(}\PY{n}{reg}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{)}
+         
+         \PY{n}{output} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} This mult.coef is 17 long. This is equal to the number of predictors}
+         \PY{c+c1}{\PYZsh{}however we also need an intercept \PYZhy{}\PYZhy{}\PYZhy{} Where is the intercept?}
+         \PY{n}{output}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{multiple\PYZus{}code}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{mult}\PY{o}{.}\PY{n}{coef}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{mult}\PY{o}{.}\PY{n}{intercept}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{output}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{multiple\PYZus{}library}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{reg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{reg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+         
+         \PY{n}{display}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simple linear regression
+
+    \end{Verbatim}
+
+    $$RSS = 57947526161288.3594 \\ MSE = 57947526161.2884 \\ R^2 = 0.4967$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Simple linear regression library:
+
+    \end{Verbatim}
+
+    $$R^2 = 0.4967$$
+
+    
+    $$MSE=57947526161$$
+
+    
+    $$RSS=57947526161288$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Multiple linear regression: 
+
+    \end{Verbatim}
+
+    $$RSS = 31862677597299.1133 \\ MSE = 31862677597.2991 \\ R^2 = 0.7233$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Multiple linear regression library
+
+    \end{Verbatim}
+
+    $$R^2 = 0.7265$$
+
+    
+    $$MSE=31486167776$$
+
+    
+    $$RSS=31486167775795$$
+
+    
+    
+    \begin{verbatim}
+    multiple_code  multiple_library
+0     -470.805669     -2.308890e+07
+1   -15737.805001     -1.470428e+04
+2    26264.450129      2.568778e+04
+3       84.504985      8.308421e+01
+4        0.350240      3.759298e-01
+5    23344.816106      1.555558e+04
+6   725344.412572      7.155352e+05
+7    65223.592066      6.302790e+04
+8    16620.915477      1.881640e+04
+9    85550.566113      7.953460e+04
+10      36.327279      4.201050e+01
+11      48.177874      4.107372e+01
+12   -2896.687815     -2.400669e+03
+13      39.137433      4.368294e+01
+14  508933.461024      5.535050e+05
+15  156340.326253     -7.424027e+03
+16      58.171586      6.801579e+01
+17      -0.639549     -5.155276e-01
+    \end{verbatim}
+
+    
+    \subsection{Problem 4 {[}Gradient
+Descent{]}}\label{problem-4-gradient-descent}
+
+In this problem, you will implement your own gradient descent algorithm
+and apply it to linear regression. Use the scaled dataset.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Write code for gradient descent for training linear regression using
+  the algorithm from class.
+\item
+  Vary the value of the learning rate (5 different values) and the
+  number of iterations (5 different values)) and report the value of
+  \(\theta\) for each of the 25 combinations, as well as the MSE metric
+  on the training set. Report the MSE on the testing set.
+\item
+  Tune your implementation to obtain results close to those obtained
+  with the package. Write some observations: How does the objective
+  change with different learning rates; how many iterations are needed,
+  etc.
+\item
+  \textbf{Extra credit - 10 points} You will get extra credit if your GD
+  implementation of linear regression achieves MSE very close to the
+  least-square solution given by the package.
+\item
+  \textbf{Extra credit - 10 points} You will extra credit if your GD
+  implementation of linear regression can run on the entire
+  ''kc\_house\_data.csv'' dataset efficiently. Report the running time
+  of your training algorithm for the entire dataset and compare that
+  with the running time of the package.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{k}{class} \PY{n+nc}{Grad\PYZus{}lin}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} has a coeficients property}
+              \PY{c+c1}{\PYZsh{} has a fit method}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{threshold}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{limit}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}alpha} \PY{o}{=} \PY{n}{alpha}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{threshold} \PY{o}{=} \PY{n}{threshold}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}limit} \PY{o}{=} \PY{n}{limit}
+          
+              \PY{k}{def} \PY{n+nf}{get\PYZus{}alpha}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}alpha}
+          
+              \PY{k}{def} \PY{n+nf}{derivative}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} TODO replace with NumPy optimised iterator}
+                  \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{c+c1}{\PYZsh{} Good chance this X is wrong here:}
+                      \PY{c+c1}{\PYZsh{} If there are errors on this line, make sure you\PYZsq{}re getting the ROW i}
+                      \PY{n}{d} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}
+                  \PY{n}{ret} \PY{o}{=} \PY{p}{(}\PY{n}{d}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                  \PY{k}{return} \PY{n}{ret}
+          
+              \PY{k}{def} \PY{n+nf}{h}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{theta}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+                  \PY{k}{return} \PY{n}{theta}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{cost}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{theta}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+          
+                  \PY{n}{intercept} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{limit} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}limit}
+          
+                  \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{intercept}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{dt} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{threshold} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{y}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                  \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{last\PYZus{}cost} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} This is really hacky}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}old\PYZus{}theta} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}cost} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{limit}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} while not converged}
+                  \PY{k}{while} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}old\PYZus{}theta}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{threshold}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{n} \PY{o}{\PYZlt{}} \PY{n}{limit}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}old\PYZus{}theta} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{diff} \PY{o}{=} \PY{l+m+mi}{0}
+                          \PY{c+c1}{\PYZsh{}here we try to use matrix operations where possible to make use of numpy optimisations}
+                          \PY{n}{hmatrix} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}old\PYZus{}theta}\PY{p}{)}
+                          \PY{n}{diff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{p}{(}\PY{n}{hmatrix} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                          \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}old\PYZus{}theta}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}alpha}\PY{o}{*}\PY{n}{diff}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}cost}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{)}
+                      \PY{n}{last\PYZus{}cost} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}cost}\PY{p}{[}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+                      \PY{c+c1}{\PYZsh{}print(self.\PYZus{}cost[n, 0], end = \PYZdq{},\PYZdq{})}
+                      \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{return} \PY{n+nb+bp}{self}
+          
+              \PY{k}{def} \PY{n+nf}{coef}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          
+              \PY{k}{def} \PY{n+nf}{intercept}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          
+              \PY{k}{def} \PY{n+nf}{rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Function assumes no leading ones\PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{n}{rss} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{rss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                  \PY{k}{return} \PY{n}{rss}
+          
+              \PY{k}{def} \PY{n+nf}{tss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Function assumes no leading ones\PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{n}{tss} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{tss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                  \PY{k}{return} \PY{n}{tss}
+          
+              \PY{k}{def} \PY{n+nf}{mse}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Function assumes no leading ones\PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{r2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{tss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+          
+              \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Takes a list of features for a single point, not including a leading 1\PYZdq{}\PYZdq{}\PYZdq{}}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}theta}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Running}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{X} \PY{o}{=} \PY{n}{standardize}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{housing\PYZus{}training\PYZus{}labels}
+          
+          \PY{c+c1}{\PYZsh{} Create a big table}
+          
+          \PY{n}{thetatable} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.00005}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{lim} \PY{o}{=} \PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{25}
+                  \PY{n}{gradmod} \PY{o}{=} \PY{n}{Grad\PYZus{}lin}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{alpha}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{lim}\PY{p}{)}
+                  \PY{n}{gradmod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                  \PY{n}{thetatable}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{gradmod}\PY{o}{.}\PY{n}{coef}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{gradmod}\PY{o}{.}\PY{n}{intercept}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{msetable} \PY{o}{=} \PY{n}{gradmod}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{thetatable}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}lines = bigtable.plot.line()}
+          
+          \PY{n}{gradmod} \PY{o}{=} \PY{n}{Grad\PYZus{}lin}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{0.00005}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{gradmod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS of training: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{gradmod}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 of training: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{gradmod}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE of training: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{gradmod}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE of test: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{gradmod}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{n}{standardize}\PY{p}{(}\PY{n}{housing\PYZus{}testing\PYZus{}features}\PY{p}{)}\PY{p}{,} \PY{n}{housing\PYZus{}testing\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+          (0, 0)        (0, 1)        (0, 2)        (0, 3)        (0, 4)  \
+0   1.156251e+05  2.055607e+05  2.755146e+05  3.299262e+05  3.722487e+05   
+1  -2.652948e-11 -4.712960e-11 -6.316745e-11 -7.564737e-11 -8.534061e-11   
+2   8.106073e-12  1.438429e-11  1.926894e-11  2.309931e-11  2.609025e-11   
+3   1.105025e-11  1.963967e-11  2.632662e-11  3.152202e-11  3.557273e-11   
+4   4.133934e-12  7.346247e-12  9.846990e-12  1.179033e-11  1.330736e-11   
+5   2.791923e-11  4.965393e-11  6.652314e-11  7.965457e-11  8.985439e-11   
+6   3.911601e-13  6.986363e-13  9.333872e-13  1.115161e-12  1.286851e-12   
+7   1.168265e-12  2.102960e-12  2.845087e-12  3.409722e-12  3.868910e-12   
+8   9.455376e-12  1.681003e-11  2.259167e-11  2.709936e-11  3.053029e-11   
+9   8.822633e-12  1.568641e-11  2.103760e-11  2.520139e-11  2.845774e-11   
+10 -1.233483e-11 -2.192964e-11 -2.939170e-11 -3.519259e-11 -3.970371e-11   
+11 -1.418991e-12 -2.507512e-12 -3.384340e-12 -4.072562e-12 -4.609681e-12   
+12  8.915399e-11  1.584820e-10  2.124111e-10  2.543671e-10  2.869910e-10   
+13  5.839579e-13  1.026602e-12  1.370893e-12  1.675137e-12  1.925108e-12   
+14 -1.508418e-09 -2.681711e-09 -3.594315e-09 -4.304158e-09 -4.856293e-09   
+15 -3.582425e-09 -6.368896e-09 -8.536285e-09 -1.022213e-08 -1.153341e-08   
+16  1.750886e-14  3.000256e-14  4.424975e-14  5.704582e-14  6.928223e-14   
+17  7.865019e-13  1.400614e-12  1.866956e-12  2.236089e-12  2.516292e-12   
+
+          (1, 0)        (1, 1)        (1, 2)        (1, 3)        (1, 4)  \
+0   1.156251e+05  2.055607e+05  2.755146e+05  3.299262e+05  3.722487e+05   
+1  -2.652948e-11 -4.712960e-11 -6.316745e-11 -7.564737e-11 -8.534061e-11   
+2   8.106073e-12  1.438429e-11  1.926894e-11  2.309931e-11  2.609025e-11   
+3   1.105025e-11  1.963967e-11  2.632662e-11  3.152202e-11  3.557273e-11   
+4   4.133934e-12  7.346247e-12  9.846990e-12  1.179033e-11  1.330736e-11   
+5   2.791923e-11  4.965393e-11  6.652314e-11  7.965457e-11  8.985439e-11   
+6   3.911601e-13  6.986363e-13  9.333872e-13  1.115161e-12  1.286851e-12   
+7   1.168265e-12  2.102960e-12  2.845087e-12  3.409722e-12  3.868910e-12   
+8   9.455376e-12  1.681003e-11  2.259167e-11  2.709936e-11  3.053029e-11   
+9   8.822633e-12  1.568641e-11  2.103760e-11  2.520139e-11  2.845774e-11   
+10 -1.233483e-11 -2.192964e-11 -2.939170e-11 -3.519259e-11 -3.970371e-11   
+11 -1.418991e-12 -2.507512e-12 -3.384340e-12 -4.072562e-12 -4.609681e-12   
+12  8.915399e-11  1.584820e-10  2.124111e-10  2.543671e-10  2.869910e-10   
+13  5.839579e-13  1.026602e-12  1.370893e-12  1.675137e-12  1.925108e-12   
+14 -1.508418e-09 -2.681711e-09 -3.594315e-09 -4.304158e-09 -4.856293e-09   
+15 -3.582425e-09 -6.368896e-09 -8.536285e-09 -1.022213e-08 -1.153341e-08   
+16  1.750886e-14  3.000256e-14  4.424975e-14  5.704582e-14  6.928223e-14   
+17  7.865019e-13  1.400614e-12  1.866956e-12  2.236089e-12  2.516292e-12   
+
+        ...             (3, 0)        (3, 1)        (3, 2)        (3, 3)  \
+0       ...       1.156251e+05  2.055607e+05  2.755146e+05  3.299262e+05   
+1       ...      -2.652948e-11 -4.712960e-11 -6.316745e-11 -7.564737e-11   
+2       ...       8.106073e-12  1.438429e-11  1.926894e-11  2.309931e-11   
+3       ...       1.105025e-11  1.963967e-11  2.632662e-11  3.152202e-11   
+4       ...       4.133934e-12  7.346247e-12  9.846990e-12  1.179033e-11   
+5       ...       2.791923e-11  4.965393e-11  6.652314e-11  7.965457e-11   
+6       ...       3.911601e-13  6.986363e-13  9.333872e-13  1.115161e-12   
+7       ...       1.168265e-12  2.102960e-12  2.845087e-12  3.409722e-12   
+8       ...       9.455376e-12  1.681003e-11  2.259167e-11  2.709936e-11   
+9       ...       8.822633e-12  1.568641e-11  2.103760e-11  2.520139e-11   
+10      ...      -1.233483e-11 -2.192964e-11 -2.939170e-11 -3.519259e-11   
+11      ...      -1.418991e-12 -2.507512e-12 -3.384340e-12 -4.072562e-12   
+12      ...       8.915399e-11  1.584820e-10  2.124111e-10  2.543671e-10   
+13      ...       5.839579e-13  1.026602e-12  1.370893e-12  1.675137e-12   
+14      ...      -1.508418e-09 -2.681711e-09 -3.594315e-09 -4.304158e-09   
+15      ...      -3.582425e-09 -6.368896e-09 -8.536285e-09 -1.022213e-08   
+16      ...       1.750886e-14  3.000256e-14  4.424975e-14  5.704582e-14   
+17      ...       7.865019e-13  1.400614e-12  1.866956e-12  2.236089e-12   
+
+          (3, 4)        (4, 0)        (4, 1)        (4, 2)        (4, 3)  \
+0   3.722487e+05  1.156251e+05  2.055607e+05  2.755146e+05  3.299262e+05   
+1  -8.534061e-11 -2.652948e-11 -4.712960e-11 -6.316745e-11 -7.564737e-11   
+2   2.609025e-11  8.106073e-12  1.438429e-11  1.926894e-11  2.309931e-11   
+3   3.557273e-11  1.105025e-11  1.963967e-11  2.632662e-11  3.152202e-11   
+4   1.330736e-11  4.133934e-12  7.346247e-12  9.846990e-12  1.179033e-11   
+5   8.985439e-11  2.791923e-11  4.965393e-11  6.652314e-11  7.965457e-11   
+6   1.286851e-12  3.911601e-13  6.986363e-13  9.333872e-13  1.115161e-12   
+7   3.868910e-12  1.168265e-12  2.102960e-12  2.845087e-12  3.409722e-12   
+8   3.053029e-11  9.455376e-12  1.681003e-11  2.259167e-11  2.709936e-11   
+9   2.845774e-11  8.822633e-12  1.568641e-11  2.103760e-11  2.520139e-11   
+10 -3.970371e-11 -1.233483e-11 -2.192964e-11 -2.939170e-11 -3.519259e-11   
+11 -4.609681e-12 -1.418991e-12 -2.507512e-12 -3.384340e-12 -4.072562e-12   
+12  2.869910e-10  8.915399e-11  1.584820e-10  2.124111e-10  2.543671e-10   
+13  1.925108e-12  5.839579e-13  1.026602e-12  1.370893e-12  1.675137e-12   
+14 -4.856293e-09 -1.508418e-09 -2.681711e-09 -3.594315e-09 -4.304158e-09   
+15 -1.153341e-08 -3.582425e-09 -6.368896e-09 -8.536285e-09 -1.022213e-08   
+16  6.928223e-14  1.750886e-14  3.000256e-14  4.424975e-14  5.704582e-14   
+17  2.516292e-12  7.865019e-13  1.400614e-12  1.866956e-12  2.236089e-12   
+
+          (4, 4)  
+0   3.722487e+05  
+1  -8.534061e-11  
+2   2.609025e-11  
+3   3.557273e-11  
+4   1.330736e-11  
+5   8.985439e-11  
+6   1.286851e-12  
+7   3.868910e-12  
+8   3.053029e-11  
+9   2.845774e-11  
+10 -3.970371e-11  
+11 -4.609681e-12  
+12  2.869910e-10  
+13  1.925108e-12  
+14 -4.856293e-09  
+15 -1.153341e-08  
+16  6.928223e-14  
+17  2.516292e-12  
+
+[18 rows x 25 columns]
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+RSS of training:  [1.15146667e+14]
+R\^{}2 of training:  [-8.24526897e-05]
+MSE of training:  [1.15146667e+11]
+MSE of test:  [1.67319523e+11]
+
+    \end{Verbatim}
+
+    \paragraph{Problem 4 Discussion}\label{problem-4-discussion}
+
+Since \(\theta\) is a large matrix, it seems that the value of
+visualisaing the value of \(\theta\) for 25 combinations of \(\alpha\)
+and the number of iterations will show little. Instead, a line graph can
+succinctly visualise this data for each of the parameters. This decision
+was made because a 450 element table seems uninterpretable.
+
+\subparagraph{Comparison with the
+package}\label{comparison-with-the-package}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{c+c1}{\PYZsh{}TODO Visualise the learning rate}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gradmod}\PY{o}{.}\PY{n}{\PYZus{}cost}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost function for alpha= 0.00005}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}TODO Compare this gradient descent to the package}
+          
+          \PY{n}{clf} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{SGDRegressor}\PY{p}{(}\PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+          \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}DO R\PYZca{}2 and MSE to compare}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}140}]:} Text(0.5,1,'Cost function for alpha= 0.00005')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here we see that around 100 iterations drastically reduces the cost
+funciton. Running for more than 100 provides a very slight improvement
+from this point.
+
+We see that with learning rates above about
+
+    \subsection{Problem 5 {[}Ridge
+Regression{]}}\label{problem-5-ridge-regression}
+
+PDF Proof can be found on the local file system
+\href{./Derivation_of_Ridge_Regression.pdf}{here} or though
+\href{https://github.com/cdilga/DS4400/blob/master/DS4400_HW1/Derivation_of_Ridge_Regression.pdf}{GitHub}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{k}{class} \PY{n+nc}{Ridge\PYZus{}reg}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} has a coeficients property}
+              \PY{c+c1}{\PYZsh{} has a fit method}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{=} \PY{l+m+mi}{0}
+                  
+              \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{lda}\PY{p}{)}\PY{p}{:} 
+                  \PY{c+c1}{\PYZsh{}We need to add a column of ones to x to allow the intercept to work}
+                  
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                  \PY{n}{intercept} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+           
+                  \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{intercept}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+                  
+                  \PY{n}{y\PYZus{}m} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}use theta}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{pinv}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{n}{lda} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{identity}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}calc\PYZus{}rss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}m}\PY{p}{)}
+                  \PY{k}{return} \PY{n+nb+bp}{self}
+              
+              \PY{k}{def} \PY{n+nf}{coef}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+              
+              \PY{k}{def} \PY{n+nf}{intercept}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              
+              \PY{k}{def} \PY{n+nf}{\PYZus{}calc\PYZus{}rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}m}\PY{p}{)}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{}we have to strip off all of the leading 1\PYZsq{}s}
+                  \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}m}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                      
+              \PY{k}{def} \PY{n+nf}{mse}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss} \PY{o}{/} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}
+                  
+              \PY{k}{def} \PY{n+nf}{rss}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}
+              
+              \PY{k}{def} \PY{n+nf}{r2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rss}\PY{o}{/}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}tss}\PY{p}{)}
+              
+              \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{theta}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              
+              
+          \PY{n}{ridge} \PY{o}{=} \PY{n}{Ridge\PYZus{}reg}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Prediction of price using new multidimensional data point}
+          
+          \PY{n}{ridge}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{)}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{model} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}testing\PYZus{}features}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{actual} \PY{o}{=} \PY{n}{housing\PYZus{}testing\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Predicted\PYZcb{}}\PY{l+s+s2}{=}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                       \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{text}\PY{l+s+si}{\PYZob{}Actual\PYZcb{}}\PY{l+s+s2}{= }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                       \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{actual}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{space ft\PYZca{}2}\PY{l+s+s2}{\PYZdq{}}
+                      \PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{Math}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS = }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ MSE = }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s2}{ R\PYZca{}2 = }\PY{l+s+si}{\PYZob{}2:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ridge}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{ridge}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{ridge}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+              \PY{n}{lda} \PY{o}{=} \PY{n}{i}\PY{o}{/}\PY{l+m+mi}{10}
+              \PY{n}{ridge}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{housing\PYZus{}training\PYZus{}features}\PY{p}{)}\PY{p}{,} \PY{n}{housing\PYZus{}training\PYZus{}labels}\PY{p}{,} \PY{n}{lda}\PY{p}{)}
+              \PY{n}{result}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{lda}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{p}{)}
+              \PY{n}{result}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{lda}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RSS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{rss}\PY{p}{(}\PY{p}{)}
+              \PY{n}{result}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{lda}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ridge}\PY{o}{.}\PY{n}{r2}\PY{p}{(}\PY{p}{)}
+              
+              
+          \PY{n}{display}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MSE by Lambda for Ridge Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    $$\text{Predicted}=689731.07 \space ft^2\\ \text{Actual}= 700000.0\space ft^2$$
+
+    
+    $$RSS = 31862677597299.113 \\ MSE = 31862677597.299114 \\ R^2 = 0.7233$$
+
+    
+    
+    \begin{verbatim}
+              MSE           RSS       R^2
+0.0  6.372536e+10  6.372536e+13  0.723263
+0.5  9.560907e+10  9.560907e+13  0.723202
+1.0  1.275492e+11  1.275492e+14  0.723049
+1.5  1.595678e+11  1.595678e+14  0.722821
+2.0  1.916792e+11  1.916792e+14  0.722535
+2.5  2.238929e+11  2.238929e+14  0.722204
+3.0  2.562145e+11  2.562145e+14  0.721838
+3.5  2.886472e+11  2.886472e+14  0.721446
+4.0  3.211923e+11  3.211923e+14  0.721035
+4.5  3.538501e+11  3.538501e+14  0.720610
+5.0  3.866197e+11  3.866197e+14  0.720175
+5.5  4.194998e+11  4.194998e+14  0.719732
+6.0  4.524887e+11  4.524887e+14  0.719286
+6.5  4.855841e+11  4.855841e+14  0.718837
+7.0  5.187838e+11  5.187838e+14  0.718388
+7.5  5.520855e+11  5.520855e+14  0.717940
+8.0  5.854865e+11  5.854865e+14  0.717493
+8.5  6.189844e+11  6.189844e+14  0.717049
+9.0  6.525767e+11  6.525767e+14  0.716609
+9.5  6.862610e+11  6.862610e+14  0.716173
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} Text(0.5,1,'MSE by Lambda for Ridge Regression')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It is very clear that the effect of \(\lambda\) is steadily negative
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

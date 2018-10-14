@@ -178,7 +178,6 @@ for i in range(5):
         gradmod.fit(X, y)
         bigtable[i, j] = np.insert(gradmod.coef(), 0, gradmod.intercept())
 
-display(bigtable)
 
 print("RSS of test: ", gradmod.rss(stft, pred))
 print("R^2 of test: ", gradmod.r2(stft, pred))
