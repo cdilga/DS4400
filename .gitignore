@@ -102,3 +102,19 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+*.code-workspace
+
+Project/croppedyale/
+
+*.zip
+
+Project/faceideval/
+
+*.tar
+
+Project/faces/
+
+Project/README \(1\)
+
+Project/\.vscode/launch\.json
