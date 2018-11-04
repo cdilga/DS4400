@@ -118,3 +118,9 @@ Project/faces/
 Project/README \(1\)
 
 Project/\.vscode/launch\.json
+
+*.gz
+
+DS4400_HW3/spambase\.txt
+
+DS4400_HW3/headers\.txt
