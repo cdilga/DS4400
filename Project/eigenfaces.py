@@ -1,26 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-
-data = [[1, 2], [2, 3], [3,5], [3,6], [6, 7], [5,7], [5,9], [9,11]]
-gamma = np.array(data)
-
-'''
-Where 
-phi - average
-gamma - individual images
-v - the eigen vector matrix
-w - the eigen values corresponding to the eigenvectors
-
-
-'''
 
 class CustomPCA():
     def __init__(self, m):
-        self._m = m
+        self.m = m
 
     def disp(self, u):
-        plt.scatter(data[:, 0], data[:, 1], label='data')
+        plt.scatter(u[:, 0], u[:, 1], label='data')
 
         plt.xlabel('x label')
         plt.ylabel('y label')
@@ -37,13 +23,23 @@ class CustomPCA():
         
 
         phi = np.mean(gamma, axis=0)
+        self.phi = phi                      # keep the average image
         psi = gamma - phi
         w, v = np.linalg.eig(np.matmul(psi.T, psi))
-        v = v[:,np.argsort(-w)][:,:self._m]
+        sortindex = np.argsort(-w)
+
+        self.components = v[:, sortindex]
+        v = self.components[:, :self.m]
+
+        w = w[sortindex][:self.m]
 
         u = np.matmul(psi, v)
-
+        #normalize u
+        norm = np.linalg.norm(u, axis=0)
+        u = u / norm
+        
         self.w = w
+        self.u = u
         self.v = v
 
         if verbose == 1:
@@ -55,19 +51,18 @@ class CustomPCA():
             print("argsorting:")
             print(w)
             print(np.argsort(-w))
-            solver = PCA()
-            result = solver.fit_transform(gamma)
-            print(result)
-            self.disp(u)
+            
         
         return u
-    def transform(self, points):
+    def transform(self, image):
         '''Takes some points and returns the relevant PCA components'''
-        #TODO add in some errors for mismatched dimensions
-        u = np.matmul(points, self.v)
-        return u
+        pass
+    def getComponents(self):
+        return self.u
 
-cpca = CustomPCA(2)
-print(cpca.fit(gamma))
-new_data = np.array([[1, 2, 3],[1,2, 3]])
-print(cpca.transform(new_data))
+    def projectFace(self, image):
+        #TODO add in some errors for mismatched dimensions
+        normalised_image = image - self.phi
+        weights = np.dot(self.u.T, normalised_image)
+        newImage = np.dot(self.u[:, :self.m], weights[:, :self.m])
+        return newImage
