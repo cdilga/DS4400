@@ -3,7 +3,10 @@ import os
 import cv2
 
 #Note that this code has been written for this project:
-import eigenfaces
+
+from sklearn.metrics import confusion_matrix
+from sklearn.decomposition import RandomizedPCA
+from sklearn.svm import SVC
 
 
 #Resize one of the images to 16x16 and then export it to an image file
@@ -52,11 +55,18 @@ def actualImage(image):
 
 images = loadImages(r'C:/Users/cdilg/Documents/NEU/DS4400/Project/croppedyale/yaleB01')
 
-cpca = eigenfaces.CustomPCA(10)
-cpca.fit(images)
+rpca = RandomizedPCA(10)
+rpca.fit(images)
+
 
 #I have no idea why the dimensionality here is wrong. 
 # It's likely that some optimisation step has left this a different dimension to the ones we were expecting
+
+#I currently have a lack of understanding of how the PCA.components_ actually works, and how these components would fit into 
+# the paper which I have been reading, as I would have expected these components to be simply u, however the dimensionality is 
+# wrong, and either there is an error in the implementation or u is not the 'components' (I suspect the implementation is wrong
+# because the paper refers to u as the eigenfaces, which should be a face representation and therfore each face should have a 
+# dimensionality of (1, 1850))
 
 actualImage(cpca.getComponents().reshape((cpca.m, 32, 32))[0])
 

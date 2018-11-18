@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class CustomPCA():
     def __init__(self, m):
         self.m = m
