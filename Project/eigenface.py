@@ -8,6 +8,8 @@ from sklearn.metrics import confusion_matrix
 from sklearn.decomposition import RandomizedPCA
 from sklearn.svm import SVC
 
+import matplotlib.pyplot as plt
+
 
 #Resize one of the images to 16x16 and then export it to an image file
 
@@ -35,7 +37,9 @@ def showImage(image):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-
+def pltImage(image):
+    plt.imshow(np.resize(image, (32, 32)), cmap=plt.cm.gray)
+    plt.show()
 def actualImage(image):
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     cv2.resizeWindow('image', 600, 600)
@@ -58,6 +62,9 @@ images = loadImages(r'C:/Users/cdilg/Documents/NEU/DS4400/Project/croppedyale/ya
 rpca = RandomizedPCA(10)
 rpca.fit(images)
 
+pca_images = rpca.transform(images)
+
+pltImage(rpca.components_[0,:])
 
 #I have no idea why the dimensionality here is wrong. 
 # It's likely that some optimisation step has left this a different dimension to the ones we were expecting
@@ -68,5 +75,4 @@ rpca.fit(images)
 # because the paper refers to u as the eigenfaces, which should be a face representation and therfore each face should have a 
 # dimensionality of (1, 1850))
 
-actualImage(cpca.getComponents().reshape((cpca.m, 32, 32))[0])
 
