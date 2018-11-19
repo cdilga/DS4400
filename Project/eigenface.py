@@ -5,6 +5,7 @@ import cv2
 #Note that this code has been written for this project:
 
 from sklearn.metrics import confusion_matrix
+import sklearn.cross_validation
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
 import scipy
@@ -18,7 +19,7 @@ from sklearn.metrics import precision_recall_fscore_support, confusion_matrix
 
 import pickle
 
-image_x = image_y = 256
+image_x = image_y = 32
 
 verbose = 5
 def resizeImage(image):
@@ -91,7 +92,7 @@ to allow a cutoff for an 'out of class' value, which we can implement.
 
 '''
 
-def eigenFaceView(face, pca, mean_face):
+def projectFaceView(face, pca, mean_face):
     face = np.array(face)
     mean_face = np.array(face)
     normal_face = face - mean_face
@@ -99,6 +100,10 @@ def eigenFaceView(face, pca, mean_face):
     pca_face = pca.transform(normal_face.reshape(1, -1))
     projected_face = np.matmul(pca_face, pca.components_)
     pltImage(projected_face)
+
+def eigenFaceView(pca):
+    eigFaces = pca.components_.reshape((len(pca.components_), image_x, image_y))
+    pltImage(eigFaces[0])
 
 def faceSolver(face):
     pca_face = rpca.transform(face.reshape(1, -1) - mean_face)
@@ -169,11 +174,11 @@ def loadAllImages(root):
         imageset = pd.DataFrame()
         labels = []
         for path, subdirs, files in os.walk(root):
-            for subdir in subdirs:
+            for j, subdir in enumerate(subdirs):
                 # Create a dataframe with the images in it
                 images = pd.DataFrame(loadImages(root + subdir))
                 # Add a label column, with the name of the subdir
-                labels.extend([subdir]*len(images))
+                labels.extend([j]*len(images))
                 # Append this to a master DataFrame
                 imageset = imageset.append(images)
 
@@ -184,33 +189,35 @@ def loadAllImages(root):
 
 images, labels = loadAllImages(r'C:/Users/cdilg/Documents/NEU/DS4400/Project/croppedyale/')
 
-splitter = sklearn.model_selection.KFold(10)
+splitter = sklearn.model_selection.StratifiedKFold(10)
+
 
 i = 0
-for train, test in splitter.split(images):
+for train, test in splitter.split(images, labels):
     i += 1
 
     print('Training iteration {}'.format(i))
     train_x = images.iloc[train,:]
     train_y = labels[train]
 
-    mean_face = np.mean(train_x, axis=0)
-    rpca = PCA(10, svd_solver='randomized')
-    rpca.fit(train_x - mean_face)
-    pca_train_x = rpca.transform(train_x - mean_face)
+    #mean_face = np.mean(train_x, axis=0)
+    rpca = PCA(100, svd_solver='randomized')
+    rpca.fit(train_x)
+    pca_train_x = rpca.transform(train_x)
 
     #model = KNeighborsClassifier(5)
     #model = LinearDiscriminantAnalysis(solver='svd')
-    eigenFaceView(train_x.iloc[50,:], rpca, mean_face)
-    input()
+    #eigenFaceView(rpca)
+    #projectFaceView(train_x.iloc[50,:], rpca)
     model = SVC(kernel = 'rbf', class_weight='balanced')
     model.fit(pca_train_x, train_y)
 
     test_x = images.iloc[test,:]
-    pca_test_x = rpca.transform(test_x - mean_face)
+    pca_test_x = rpca.transform(test_x)
     test_y = labels[test]
-    
-    print(sklearn.metrics.accuracy_score(test_y, model.predict(pca_test_x)))
+    predicted_y = model.predict(pca_test_x)
+
+    print(sklearn.metrics.accuracy_score(test_y, predicted_y))
 
 
 
