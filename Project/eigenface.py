@@ -10,11 +10,17 @@ from sklearn.svm import SVC
 import scipy
 import scipy.stats
 import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+import sklearn.model_selection
+from sklearn.metrics import precision_recall_fscore_support, confusion_matrix
 
-
+import pickle
 
 image_x = image_y = 256
 
+verbose = 5
 def resizeImage(image):
     return cv2.resize(image, (image_x, image_y), 0, 0, cv2.INTER_AREA)
 
@@ -51,16 +57,20 @@ def pltImage(image):
 
 #compare all results
 
+'''
 images = loadImages(r'C:/Users/cdilg/Documents/NEU/DS4400/Project/croppedyale/yaleB01')
 
 mean_face = np.mean(images, axis = 0)
 
 rpca = PCA(100, svd_solver='randomized')
-rpca.fit(images)
+rpca.fit(images - mean_face)
 
-pca_images = rpca.transform(images)
+pca_images = rpca.transform(images - mean_face)
 
 #pltImage(rpca.components_[0,:])
+'''
+
+
 
 '''
 In the style of the original paper we will define a distance metric, 
@@ -80,6 +90,16 @@ to allow a cutoff for an 'out of class' value, which we can implement.
 
 
 '''
+
+def eigenFaceView(face, pca, mean_face):
+    face = np.array(face)
+    mean_face = np.array(face)
+    normal_face = face - mean_face
+    
+    pca_face = pca.transform(normal_face.reshape(1, -1))
+    projected_face = np.matmul(pca_face, pca.components_)
+    pltImage(projected_face)
+
 def faceSolver(face):
     pca_face = rpca.transform(face.reshape(1, -1) - mean_face)
 
@@ -132,6 +152,66 @@ def toyDistanceClassifier():
     print('Recall: {}'.format(tp/(tp+fn)))
     print('Accuracy: {}'.format(acc))
     print('Error: {}'.format(err))
-toyDistanceClassifier()
+#toyDistanceClassifier()
 
 #Now train with all the images
+
+def loadAllImages(root):
+    '''Note, specifically for loading in images in the dir structure of the yale faces dataset'''
+    try:
+        if(verbose > 1):
+            print('Loading images')
+        imageset, labels = pickle.load(open('im.cache', 'rb'))
+
+    except FileNotFoundError:
+        if (verbose > 1):
+            print('Falling back to loading manually')
+        imageset = pd.DataFrame()
+        labels = []
+        for path, subdirs, files in os.walk(root):
+            for subdir in subdirs:
+                # Create a dataframe with the images in it
+                images = pd.DataFrame(loadImages(root + subdir))
+                # Add a label column, with the name of the subdir
+                labels.extend([subdir]*len(images))
+                # Append this to a master DataFrame
+                imageset = imageset.append(images)
+
+            labels = np.array(labels)
+            break
+        pickle.dump((imageset, labels), open('im.cache', 'wb'))
+    return (imageset, labels)
+
+images, labels = loadAllImages(r'C:/Users/cdilg/Documents/NEU/DS4400/Project/croppedyale/')
+
+splitter = sklearn.model_selection.KFold(10)
+
+i = 0
+for train, test in splitter.split(images):
+    i += 1
+
+    print('Training iteration {}'.format(i))
+    train_x = images.iloc[train,:]
+    train_y = labels[train]
+
+    mean_face = np.mean(train_x, axis=0)
+    rpca = PCA(10, svd_solver='randomized')
+    rpca.fit(train_x - mean_face)
+    pca_train_x = rpca.transform(train_x - mean_face)
+
+    #model = KNeighborsClassifier(5)
+    #model = LinearDiscriminantAnalysis(solver='svd')
+    eigenFaceView(train_x.iloc[50,:], rpca, mean_face)
+    input()
+    model = SVC(kernel = 'rbf', class_weight='balanced')
+    model.fit(pca_train_x, train_y)
+
+    test_x = images.iloc[test,:]
+    pca_test_x = rpca.transform(test_x - mean_face)
+    test_y = labels[test]
+    
+    print(sklearn.metrics.accuracy_score(test_y, model.predict(pca_test_x)))
+
+
+
+
