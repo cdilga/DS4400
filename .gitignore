@@ -124,3 +124,19 @@ Project/\.vscode/launch\.json
 DS4400_HW3/spambase\.txt
 
 DS4400_HW3/headers\.txt
+
+DS4400_HW3/t10k-images\.idx3-ubyte
+
+DS4400_HW3/t10k-labels\.idx1-ubyte
+
+DS4400_HW3/train-images\.idx3-ubyte
+
+DS4400_HW3/train-labels\.idx1-ubyte
+
+DS4400_HW3/mnist\.pkl
+
+*.jpg
+
+Project/101_ObjectCategories/BACKGROUND_Google/tmp
+
+Project/face_recognition\.py
